@@ -1,0 +1,2 @@
+Fondo editado con la herramienta integrada de imágenes a partir de la referencia del usuario.
+Prompt: conservar fondo amarillo, patrón de engranes y robots a la izquierda, logo PlayRobot Connect con lema en zona blanca superior derecha y robot azul inferior derecho. Retirar solamente Instalando, barra verde/blanca y texto de curiosidades; rellenar con fondo amarillo. Sin borde negro ni elementos nuevos.

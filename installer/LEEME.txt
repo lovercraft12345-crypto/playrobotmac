@@ -1,0 +1,30 @@
+ACTUALIZAR SOLO EL DISEÑO SI YA GENERASTE EL EXE
+
+Copia la carpeta installer de este ZIP sobre la carpeta installer de tu proyecto anterior y acepta reemplazar. Conserva installer/stage (este ZIP no la contiene). Copia también Recompilar_Aspecto.bat a la carpeta playrobot y ejecútalo. Así solo se recompila el EXE con el tema nuevo, sin descargar las dependencias otra vez.
+
+Si no tienes installer/stage, usa Crear_Instalador.bat para generar todo.
+
+DISEÑO PLAYROBOT CONNECT
+
+Esta versión cambia el asistente por el fondo amarillo de tu referencia, con logo Connect y robot azul. La bienvenida, carpeta, avance y final usan la misma composición. La barra sigue la extracción real; los consejos cambian al avanzar.
+
+Si ya compilaste la versión anterior, usa este ZIP nuevo y vuelve a ejecutar Crear_Instalador.bat. El EXE anterior no cambia automáticamente.
+
+CREAR EL INSTALADOR PARA WINDOWS
+
+1. Descomprime todo el ZIP en una carpeta nueva.
+2. En tu computadora de desarrollo conserva Python de 64 bits con Tcl/Tk y pip. Puedes usar el Python que ya usas para PlayRobot.
+3. Instala Inno Setup 6 desde https://jrsoftware.org/isdl.php (solo en tu computadora de desarrollo).
+4. Haz doble clic en Crear_Instalador.bat en la carpeta playrobot.
+5. Espera la descarga de las dependencias y la compilación. Necesitas Internet durante este paso.
+6. El resultado está en installer\salida\PlayRobot_Setup.exe.
+
+Ese EXE es el que compartes. En las otras computadoras no necesitan Python, VS Code ni Inno Setup. El asistente está en español, incluye Lesly y el logo, muestra el progreso, crea accesos directos y ofrece abrir el programa al terminar. Se instala por usuario y puede desinstalarse desde Windows.
+
+El EXE final debe compilarse y probarse en Windows; este ZIP contiene el proyecto para generarlo, no un EXE ya compilado. Realiza una prueba en una computadora sin Python antes de distribuirlo.
+
+Esta edición conserva admin / admin como Premium LOCAL de pruebas. No habilita acceso de administrador en la web ni modifica pagos. Retira esta cuenta antes de una distribución comercial.
+
+El instalador no incluye tu .env ni playrobot.db, tampoco inicia el servidor Flask. Las cuentas normales usan la dirección configurada del servidor. El chat requiere su clave/configuración habitual. Los controladores USB y firmware no se instalan automáticamente.
+
+Tus fuentes y tu entorno actual no se modifican al generar el EXE. Solo se regenera installer\stage. Conserva tu carpeta original y los proyectos; no extraigas el ZIP sobre una instalación en uso.

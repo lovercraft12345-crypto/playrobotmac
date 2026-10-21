@@ -1,0 +1,40 @@
+COMPILAR SIN TENER UNA MAC
+
+Consulta LEEME_GITHUB_MAC.md en la raíz del paquete. El flujo .github/workflows/mac-prueba.yml genera Intel y Apple Silicon con Macs de GitHub Actions.
+
+PLAYROBOT · PRUEBA PARA MAC
+
+ESTADO: adaptación de código y generador de .app/.dmg. No es un DMG ya compilado. Falta probar la interfaz, sonido y ESP32 en una Mac real.
+
+PARA PROBAR EL PROGRAMA
+1. Descomprime el ZIP en Documentos, en una carpeta que puedas modificar.
+2. En la Mac instala Python 3 con Tkinter desde https://www.python.org/downloads/macos/.
+3. Abre Terminal y escribe: bash seguido de un espacio.
+4. Arrastra macos/Preparar_Prueba.command a la Terminal y pulsa Enter.
+5. Se prepara un entorno propio .venv-mac, se descargan dependencias y se abre PlayRobot.
+6. En los siguientes arranques usa macos/Abrir_PlayRobot.command. Si no tiene permiso de ejecución, ábrelo igual con bash y arrastrando el archivo.
+
+USUARIO DE PRUEBA
+admin
+Contraseña: admin
+Acceso Premium LOCAL a todos los niveles, sin servidor. Las cuentas reales requieren el servidor habitual. Esta cuenta es solo para la edición de pruebas.
+
+CREAR LA APP Y EL DMG
+En la Mac ejecuta con bash el archivo macos/Crear_DMG.command.
+Genera macos/salida/PlayRobot.app y PlayRobot_Prueba_arm64.dmg o PlayRobot_Prueba_x86_64.dmg según el Python usado para compilar.
+El DMG contiene la aplicación y un enlace a Aplicaciones: arrastra PlayRobot a Aplicaciones.
+Los usuarios del DMG no necesitan instalar Python. El generador requiere Internet para descargar dependencias.
+Compila por separado para Apple Silicon e Intel, con Python nativo de cada arquitectura. No es una compilación universal.
+La app lleva firma ad hoc para pruebas, no una firma Developer ID ni notarización. macOS puede bloquear su apertura. Sigue las indicaciones de Privacidad y seguridad de macOS para permitir una app de prueba que reconoces; no desactives Gatekeeper.
+
+LESLY
+En esta prueba utiliza la voz del sistema macOS en español. Prefiere Paulina o Mónica si están instaladas. Si no están Paulina o Mónica, pide instalar una de ellas. No usa la voz inglesa predeterminada.
+La escucha por micrófono aún requiere validación y adaptación en Mac; esta entrega no garantiza esa función.
+El chat IA requiere tu configuración habitual. Opcionalmente puedes colocar un .env en ~/Library/Application Support/PlayRobot/.env. No compartas claves dentro de la app o del DMG.
+
+ESP32
+El programa conserva las utilidades mpremote y esptool y sus controles de conexión. El .app tiene una entrada específica para ejecutar esas utilidades sin abrir otra ventana del programa.
+La conexión USB, los controladores específicos y la grabación deben comprobarse en tu Mac con la placa real. No se instalan controladores automáticamente.
+El visor 3D usa la alternativa de software en Mac.
+
+Incluye también las fuentes de Windows existentes; no ejecutes los .bat en Mac. El servidor Flask no forma parte del DMG y no se inicia automáticamente.
