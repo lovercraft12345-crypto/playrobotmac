@@ -1,0 +1,84 @@
+name: Crear PlayRobot para Mac
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  construir:
+    name: Mac ${{ matrix.arch }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            arch: arm64
+          - runner: macos-15-intel
+            arch: x86_64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: '1'
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Instalar Python y Tkinter en la Mac de compilación
+        shell: bash
+        run: |
+          set -euo pipefail
+          brew install python@3.13 python-tk@3.13
+          "$(brew --prefix python@3.13)/bin/python3.13" -m venv .venv-mac
+          .venv-mac/bin/python -c "import platform; assert platform.machine() == '${{ matrix.arch }}', platform.machine()"
+          .venv-mac/bin/python -c 'import tkinter; t=tkinter.Tk(); t.withdraw(); t.destroy()'
+
+      - name: Instalar dependencias
+        shell: bash
+        run: |
+          set -euo pipefail
+          .venv-mac/bin/python -m pip install --upgrade pip
+          .venv-mac/bin/python -m pip install -r requirements-desktop.txt -r requirements-server.txt 'pyinstaller>=6.14,<7'
+
+      - name: Ejecutar pruebas del código
+        shell: bash
+        run: .venv-mac/bin/python -m unittest discover -s tests -q
+
+      - name: Generar app, comprobarla y crear DMG
+        shell: bash
+        run: .venv-mac/bin/python macos/build_mac.py
+
+      - name: Verificar imagen y firma de prueba
+        shell: bash
+        run: |
+          set -euo pipefail
+          /usr/bin/hdiutil verify "macos/salida/PlayRobot_Prueba_${{ matrix.arch }}.dmg"
+          /usr/bin/codesign --verify --deep --strict --verbose=2 macos/salida/PlayRobot.app
+          /usr/bin/shasum -a 256 "macos/salida/PlayRobot_Prueba_${{ matrix.arch }}.dmg" > "macos/salida/SHA256_${{ matrix.arch }}.txt"
+
+      - name: Descargar instalador de prueba
+        uses: actions/upload-artifact@v4
+        with:
+          name: PlayRobot-Mac-${{ matrix.arch }}
+          path: |
+            macos/salida/*.dmg
+            macos/salida/SHA256_*.txt
+            macos/salida/prueba_app.json
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 0
+
+      - name: Guardar diagnóstico de la compilación
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Diagnostico-Mac-${{ matrix.arch }}
+          path: |
+            macos/build/PlayRobot/warn-PlayRobot.txt
+            macos/salida/prueba_app.json
+          if-no-files-found: ignore
+          retention-days: 7
