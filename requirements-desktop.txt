@@ -1,0 +1,9 @@
+Pillow>=10
+numpy>=2.0
+PyOpenGL>=3.1.7
+pyopengltk==0.0.4; sys_platform == "win32" or sys_platform == "linux"
+pyserial>=3.5
+mpremote
+esptool
+edge-tts
+sounddevice
