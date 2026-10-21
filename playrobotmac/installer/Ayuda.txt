@@ -1,0 +1,11 @@
+PLAYROBOT · TALLER DE ENGRANES
+
+Aprende programación con engranes, simulaciones y tu ESP32.
+
+Este instalador incluye el entorno de Python y las dependencias del escritorio. Los tutoriales y las simulaciones se pueden usar sin Internet. El chat con IA, las voces naturales y la consulta de suscripciones requieren su conexión y configuración habituales.
+
+Guarda tus proyectos en Documentos o en la carpeta que elijas. La instalación no incluye claves privadas, cuentas personales ni bases de datos del servidor.
+
+Esta edición de pruebas incluye la cuenta local admin / admin con todos los niveles. No distribuir como edición comercial hasta retirar esa cuenta.
+
+La instalación de controladores USB CP210x/CH340 y la grabación del firmware de la ESP32 son procesos aparte. El instalador no modifica la placa ni instala controladores de terceros.
